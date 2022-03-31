@@ -17,11 +17,21 @@ Este proyecto es una muestra de una solución CRUD base de una Azure Function Ap
 
 ## ✔️ CARACTERÍSTICAS
 
+- [x] Create User
+- [x] Get All Users
+- [x] Get User by Id
+- [x] Update User
+- [x] Delete User
 - [x] Create Task
 - [x] Get All Tasks
 - [x] Get Task by Id
 - [x] Update Task
 - [x] Delete Task
+- [x] Create Note
+- [x] Get All Notes
+- [x] Get Note by Id
+- [x] Update Note
+- [x] Delete Note
 
 ## ⚙️ INSTALACIÓN
 

@@ -7,16 +7,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Tasks.FunctionApp.Models;
-using Tasks.FunctionApp.DataTransferObjects.Task;
+using Tasks.FunctionApp.DataTransferObjects.User;
 using Tasks.FunctionApp.Exceptions;
 
-namespace Tasks.FunctionApp.Functions.Task
+namespace Tasks.FunctionApp.Functions.User
 {
     public class Create : Base
     {
-        [FunctionName("CreateTask")]
+        [FunctionName("CreateUser")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "tasks")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "users")] HttpRequest req,
             [CosmosDB(
                 DatabaseName,
                 CollectionName,
@@ -25,32 +25,30 @@ namespace Tasks.FunctionApp.Functions.Task
                 IAsyncCollector<object> tasks,
             ILogger log)
         {
-            log.LogInformation("Creating a new task list item.");
+            log.LogInformation("Creating a new user list item.");
 
             try
             {
                 var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-                var data = JsonConvert.DeserializeObject<TaskForCreation>(requestBody);
+                var data = JsonConvert.DeserializeObject<UserForCreation>(requestBody);
 
-                var task = new TaskModel()
+                var user = new UserModel()
                 {
-                    Category = data.Category,
-                    TaskDescription = data.TaskDescription
+                    FirstName = data.FirstName,
+                    LastName = data.LastName
                 };
                 await tasks.AddAsync(new
                 {
-                    id = task.Id,
-                    created_time = task.CreatedTime,
-                    category = task.Category,
-                    task_description = task.TaskDescription,
-                    is_completed = task.IsCompleted
+                    id = user.Id,
+                    first_name = user.FirstName,
+                    last_name = user.LastName
                 });
 
-                log.LogInformation($"New task created successfully with ID {task.Id}.");
+                log.LogInformation($"New user created successfully with ID {user.Id}.");
 
-                return new OkObjectResult(task);
+                return new OkObjectResult(user);
             }
-            catch (TaskException exception)
+            catch (UserException exception)
             {
                 log?.LogInformation(exception.ToString());
             }

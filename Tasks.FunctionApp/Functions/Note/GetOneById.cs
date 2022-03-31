@@ -10,13 +10,13 @@ using Microsoft.Azure.Documents.Client;
 using System.Linq;
 using Tasks.FunctionApp.Exceptions;
 
-namespace Tasks.FunctionApp.Functions.Task;
+namespace Tasks.FunctionApp.Functions.Note;
 
 public class GetOneById : Base
 {
-    [FunctionName("GetOneTaskById")]
+    [FunctionName("GetOneNoteById")]
     public static async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "tasks/{id}")] HttpRequest req,
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "notes/{id}")] HttpRequest req,
         [CosmosDB(
             DatabaseName,
             CollectionName,
@@ -25,7 +25,7 @@ public class GetOneById : Base
                 DocumentClient client,
             ILogger log, string id)
     {
-        log.LogInformation("Getting task item by id.");
+        log.LogInformation("Getting note item by id.");
 
         try
         {
@@ -39,11 +39,11 @@ public class GetOneById : Base
             }
 
             await client.ReplaceDocumentAsync(document);
-            TaskModel task = (dynamic)document;
+            NoteModel note = (dynamic)document;
 
-            return new OkObjectResult(task);
+            return new OkObjectResult(note);
         }
-        catch (TaskException exception)
+        catch (NoteException exception)
         {
             log?.LogInformation(exception.ToString());
         }

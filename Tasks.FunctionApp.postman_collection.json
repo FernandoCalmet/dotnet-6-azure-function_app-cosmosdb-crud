@@ -6,125 +6,403 @@
 	},
 	"item": [
 		{
-			"name": "CreateTask",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Category\" : \"Azure\",\r\n    \"TaskDescription\" : \"hola desde postman localhost\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "CreateTask",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Category\" : \"Azure\",\r\n    \"TaskDescription\" : \"create: hola desde postman localhost\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"tasks"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:7071/api/Task",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7071",
-					"path": [
-						"api",
-						"Task"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllTasks",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7071/api/Task",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7071",
-					"path": [
-						"api",
-						"Task"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetOneTaskById",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7071/api/Task/{id}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7071",
-					"path": [
-						"api",
-						"Task",
-						"{id}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "RemoveTask",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:7071/api/Task/{id}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7071",
-					"path": [
-						"api",
-						"Task",
-						"{id}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UpdateTask",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Category\" : \"Azure\",\r\n    \"TaskDescription\" : \"hola desde postman localhost\",\r\n    \"IsCompleted\" : true\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "GetAllTasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"tasks"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:7071/api/Task/{id}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "7071",
-					"path": [
-						"api",
-						"Task",
-						"{id}"
-					]
+				{
+					"name": "GetOneTaskById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/tasks/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"tasks",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RemoveTask",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/tasks/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"tasks",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTask",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-ms-query-enable-crosspartition",
+								"value": "True",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Category\" : \"Azure\",\r\n    \"TaskDescription\" : \"actualizado: hola desde postman localhost\",\r\n    \"IsCompleted\" : true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/tasks/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"tasks",
+								"{id}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "CreateNote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"User\" : \r\n    {\r\n        \"FirstName\" : \"Fernando\",\r\n        \"LastName\" : \"Calmet\"\r\n    },\r\n    \"Tasks\":\r\n     [\r\n        {\r\n            \"Category\" : \"Azure\",\r\n            \"TaskDescription\" : \"created: hola desde postman localhost 1\"\r\n        },\r\n        {\r\n            \"Category\" : \"Azure\",\r\n            \"TaskDescription\" : \"created: hola desde postman localhost 2\"\r\n        },\r\n        {\r\n            \"Category\" : \"Azure\",\r\n            \"TaskDescription\" : \"created: hola desde postman localhost 3\"\r\n        },\r\n        {\r\n            \"Category\" : \"Azure\",\r\n            \"TaskDescription\" : \"created: hola desde postman localhost 4\"\r\n        }\r\n     ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllNotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOneNoteById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/notes/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"notes",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RemoveNote",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/notes/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"notes",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateNote",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-ms-query-enable-crosspartition",
+								"value": "True",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Tasks\":\r\n     [\r\n        {\r\n            \"Category\" : \"Google\",\r\n            \"TaskDescription\" : \"updated: hola desde postman localhost 1\"\r\n        },\r\n        {\r\n            \"Category\" : \"AWS\",\r\n            \"TaskDescription\" : \"updated: hola desde postman localhost 2\"\r\n        },\r\n        {\r\n            \"Category\" : \"Google\",\r\n            \"TaskDescription\" : \"updated: hola desde postman localhost 3\"\r\n        },\r\n        {\r\n            \"Category\" : \"AWS\",\r\n            \"TaskDescription\" : \"updated: hola desde postman localhost 4\"\r\n        }\r\n     ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/notes/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"notes",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "CreateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FirstName\" : \"Fernando\",\r\n    \"LastName\" : \"Calmet\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOneUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/users/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"users",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RemoveUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7071/api/users/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"users",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-ms-query-enable-crosspartition",
+								"value": "True",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FirstName\" : \"Csharp\",\r\n    \"LastName\" : \"DOTNET\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7071/api/users/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"users",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

@@ -7,28 +7,28 @@ using System.Collections.Generic;
 using Tasks.FunctionApp.Models;
 using Tasks.FunctionApp.Exceptions;
 
-namespace Tasks.FunctionApp.Functions.Task;
+namespace Tasks.FunctionApp.Functions.Note;
 
 public class GetAll : Base
 {
-    [FunctionName("GetAllTasks")]
+    [FunctionName("GetAllNotes")]
     public static IActionResult Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "tasks")] HttpRequest req,
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "notes")] HttpRequest req,
     [CosmosDB(
             DatabaseName,
             CollectionName,
             ConnectionStringSetting = "CosmosDBConnection",
             SqlQuery = "SELECT * FROM c order by c._ts desc")]
-        IEnumerable<TaskModel> tasks,
+        IEnumerable<NoteModel> notes,
     ILogger log)
     {
-        log.LogInformation("Getting task list items");
+        log.LogInformation("Getting note list items");
 
         try
         {
-            return new OkObjectResult(tasks);
+            return new OkObjectResult(notes);
         }
-        catch (TaskException exception)
+        catch (NoteException exception)
         {
             log?.LogInformation(exception.ToString());
         }

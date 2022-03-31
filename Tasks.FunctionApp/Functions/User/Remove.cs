@@ -9,20 +9,20 @@ using Microsoft.Azure.Documents.Client;
 using System.Linq;
 using Tasks.FunctionApp.Exceptions;
 
-namespace Tasks.FunctionApp.Functions.Task;
+namespace Tasks.FunctionApp.Functions.User;
 
 public class Remove : Base
 {
-    [FunctionName("RemoveTask")]
+    [FunctionName("RemoveUser")]
     public static async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "tasks/{id}")]
+        [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "users/{id}")]
             HttpRequest req,
         [CosmosDB(ConnectionStringSetting = "CosmosDBConnection")]
             DocumentClient client,
         ILogger log,
         string id)
     {
-        log.LogInformation("Deleting a task from list item.");
+        log.LogInformation("Deleting a user from list item.");
 
         try
         {
@@ -35,11 +35,11 @@ public class Remove : Base
             }
 
             await client.DeleteDocumentAsync(document.SelfLink);
-            log.LogInformation($"Task deleted successfully with ID {id}.");
+            log.LogInformation($"User deleted successfully with ID {id}.");
 
             return new OkResult();
         }
-        catch (TaskException exception)
+        catch (UserException exception)
         {
             log?.LogInformation(exception.ToString());
         }

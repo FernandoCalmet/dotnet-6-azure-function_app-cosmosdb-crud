@@ -1,4 +1,4 @@
-﻿namespace Tasks.FunctionApp.DTO.Task;
+﻿namespace Tasks.FunctionApp.DataTransferObjects.Task;
 
 public class TaskForUpdate
 {
