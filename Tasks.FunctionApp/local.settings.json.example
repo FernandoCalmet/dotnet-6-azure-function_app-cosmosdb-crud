@@ -3,6 +3,6 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "CosmosDBConnection": "AccountEndpoint=http://localhost:7071/;AccountKey=aGf23ZKuISsXRIVBwnA8SDIAFy94aCuwUOzRVJEm96DRZ81Kwin4VcXreVG9KWYVYGxiBUB1YHU1LFjkmXbhjw=="
+    "CosmosDBConnection": "AccountEndpoint=https://MYAPIHERE/;AccountKey=MY_KEY_HERE"
   }
 }
