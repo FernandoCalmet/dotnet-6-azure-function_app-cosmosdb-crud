@@ -8,9 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.Azure.Documents.Client;
-using Tasks.FunctionApp.DTO;
+using Tasks.FunctionApp.DTO.Task;
 using System.Linq;
 using Tasks.FunctionApp.Models;
+using Tasks.FunctionApp.Exceptions;
 
 namespace Tasks.FunctionApp.Functions.Task;
 
@@ -27,33 +28,34 @@ public class Update : Base
     {
         log.LogInformation("Updating a task list item.");
 
-        string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-        var updated = JsonConvert.DeserializeObject<TaskForUpdate>(requestBody);
-        Uri collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName);
-        var document = client.CreateDocumentQuery(collectionUri).Where(t => t.Id == id)
-                        .AsEnumerable().FirstOrDefault();
-        if (document == null)
+        try
         {
-            return new NotFoundResult();
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var updated = JsonConvert.DeserializeObject<TaskForUpdate>(requestBody);
+            Uri collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName);
+            var document = client.CreateDocumentQuery(collectionUri).Where(t => t.Id == id)
+                            .AsEnumerable().FirstOrDefault();
+
+            if (document == null) return new NotFoundResult();
+
+            if (!string.IsNullOrEmpty(updated.Category)) document.SetPropertyValue("TaskDescription", updated.Category);
+
+            if (!string.IsNullOrEmpty(updated.TaskDescription)) document.SetPropertyValue("TaskDescription", updated.TaskDescription);
+
+            document.SetPropertyValue("IsCompleted", updated.IsCompleted);
+
+            await client.ReplaceDocumentAsync(document);
+
+            TaskModel task = (dynamic)document;
+            log.LogInformation($"New Task updated successfully with ID {task.Id}.");
+
+            return new OkObjectResult(task);
+        }
+        catch (TaskException exception)
+        {
+            log?.LogInformation(exception.ToString());
         }
 
-        if (!string.IsNullOrEmpty(updated.Category))
-        {
-            document.SetPropertyValue("TaskDescription", updated.Category);
-        }
-
-        if (!string.IsNullOrEmpty(updated.TaskDescription))
-        {
-            document.SetPropertyValue("TaskDescription", updated.TaskDescription);
-        }
-
-        document.SetPropertyValue("IsCompleted", updated.IsCompleted);
-
-        await client.ReplaceDocumentAsync(document);
-
-        TaskModel task = (dynamic)document;
-        log.LogInformation($"New Task updated successfully with ID {task.Id}.");
-
-        return new OkObjectResult(task);
+        return new BadRequestResult();
     }
 }

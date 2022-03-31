@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using Tasks.FunctionApp.Models;
+using Tasks.FunctionApp.Exceptions;
 
 namespace Tasks.FunctionApp.Functions.Task;
 
@@ -23,6 +24,16 @@ public class GetAll : Base
     ILogger log)
     {
         log.LogInformation("Getting task list items");
-        return new OkObjectResult(tasks);
+
+        try
+        {
+            return new OkObjectResult(tasks);
+        }
+        catch (TaskException exception)
+        {
+            log?.LogInformation(exception.ToString());
+        }
+
+        return new BadRequestResult();
     }
 }

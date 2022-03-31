@@ -8,6 +8,7 @@ using Tasks.FunctionApp.Models;
 using System;
 using Microsoft.Azure.Documents.Client;
 using System.Linq;
+using Tasks.FunctionApp.Exceptions;
 
 namespace Tasks.FunctionApp.Functions.Task;
 
@@ -26,18 +27,27 @@ public class GetOneById : Base
     {
         log.LogInformation("Getting task item by id.");
 
-        Uri collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName);
-        var document = client.CreateDocumentQuery(collectionUri).Where(t => t.Id == id)
-                        .AsEnumerable().FirstOrDefault();
-        if (document == null)
+        try
         {
-            log.LogInformation($"Item {id} not found");
-            return new NotFoundResult();
+            Uri collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName);
+            var document = client.CreateDocumentQuery(collectionUri).Where(t => t.Id == id)
+                            .AsEnumerable().FirstOrDefault();
+            if (document == null)
+            {
+                log.LogInformation($"Item {id} not found");
+                return new NotFoundResult();
+            }
+
+            await client.ReplaceDocumentAsync(document);
+            TaskModel task = (dynamic)document;
+
+            return new OkObjectResult(task);
+        }
+        catch (TaskException exception)
+        {
+            log?.LogInformation(exception.ToString());
         }
 
-        await client.ReplaceDocumentAsync(document);
-        TaskModel task = (dynamic)document;
-
-        return new OkObjectResult(task);
+        return new BadRequestResult();
     }
 }

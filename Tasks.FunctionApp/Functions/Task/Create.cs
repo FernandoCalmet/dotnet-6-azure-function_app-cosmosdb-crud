@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Tasks.FunctionApp.Models;
-using Tasks.FunctionApp.DTO;
+using Tasks.FunctionApp.DTO.Task;
+using Tasks.FunctionApp.Exceptions;
 
 namespace Tasks.FunctionApp.Functions.Task
 {
@@ -25,26 +26,36 @@ namespace Tasks.FunctionApp.Functions.Task
             ILogger log)
         {
             log.LogInformation("Creating a new task list item.");
-            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var data = JsonConvert.DeserializeObject<TaskForCreation>(requestBody);
 
-            var task = new TaskModel()
+            try
             {
-                Category = data.Category,
-                TaskDescription = data.TaskDescription
-            };
-            await tasks.AddAsync(new
+                var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                var data = JsonConvert.DeserializeObject<TaskForCreation>(requestBody);
+
+                var task = new TaskModel()
+                {
+                    Category = data.Category,
+                    TaskDescription = data.TaskDescription
+                };
+                await tasks.AddAsync(new
+                {
+                    id = task.Id,
+                    created_time = task.CreatedTime,
+                    category = task.Category,
+                    task_description = task.TaskDescription,
+                    is_completed = task.IsCompleted
+                });
+
+                log.LogInformation($"New Task created successfully with ID {task.Id}.");
+
+                return new OkObjectResult(task);
+            }
+            catch (TaskException exception)
             {
-                id = task.Id,
-                created_time = task.CreatedTime,
-                category = task.Category,
-                task_description = task.TaskDescription,
-                is_completed = task.IsCompleted
-            });
+                log?.LogInformation(exception.ToString());
+            }
 
-            log.LogInformation($"New Task created successfully with ID {task.Id}.");
-
-            return new OkObjectResult(task);
+            return new BadRequestResult();
         }
     }
 }
