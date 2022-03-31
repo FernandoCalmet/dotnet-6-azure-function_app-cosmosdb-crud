@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "fe1a2727-3da1-4937-bc25-339538f439db",
+		"name": "Tasks.FunctionApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateTask",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Category\" : \"Azure\",\r\n    \"TaskDescription\" : \"hola desde postman localhost\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/Task",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"Task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllTasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7071/api/Task",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"Task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOneTaskById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7071/api/Task/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"Task",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveTask",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7071/api/Task/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"Task",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTask",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Category\" : \"Azure\",\r\n    \"TaskDescription\" : \"hola desde postman localhost\",\r\n    \"IsCompleted\" : true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/Task/{id}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"Task",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

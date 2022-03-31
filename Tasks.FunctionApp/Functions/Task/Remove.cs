@@ -10,9 +10,9 @@ using System.Linq;
 
 namespace Tasks.FunctionApp.Functions.Task;
 
-public class RemoveById : Base
+public class Remove : Base
 {
-    [FunctionName("RemoveTaskById")]
+    [FunctionName("RemoveTask")]
     public static async Task<IActionResult> Run(
         [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "Task/{id}")]
             HttpRequest req,
