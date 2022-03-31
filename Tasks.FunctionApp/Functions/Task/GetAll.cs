@@ -13,7 +13,7 @@ public class GetAll : Base
 {
     [FunctionName("GetAllTasks")]
     public static async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Task")] HttpRequest req,
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "task")] HttpRequest req,
     [CosmosDB(
             DatabaseName,
             CollectionName,

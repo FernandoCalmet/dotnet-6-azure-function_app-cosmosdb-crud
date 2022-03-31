@@ -14,7 +14,7 @@ public class Remove : Base
 {
     [FunctionName("RemoveTask")]
     public static async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "Task/{id}")]
+        [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "task/{id}")]
             HttpRequest req,
         [CosmosDB(ConnectionStringSetting = "CosmosDBConnection")]
             DocumentClient client,

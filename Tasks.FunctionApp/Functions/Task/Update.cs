@@ -18,7 +18,7 @@ public class Update : Base
 {
     [FunctionName("UpdateTask")]
     public static async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "Task/{id}")]
+        [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "task/{id}")]
             HttpRequest req,
         [CosmosDB(ConnectionStringSetting = "CosmosDBConnection")]
             DocumentClient client,

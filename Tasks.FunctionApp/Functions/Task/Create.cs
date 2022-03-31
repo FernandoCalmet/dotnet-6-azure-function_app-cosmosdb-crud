@@ -15,12 +15,14 @@ namespace Tasks.FunctionApp.Functions.Task
     {
         [FunctionName("CreateTask")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Task")] HttpRequest req,
-        [CosmosDB(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "task")] HttpRequest req,
+            [CosmosDB(
                 DatabaseName,
                 CollectionName,
-                ConnectionStringSetting = "CosmosDBConnection")]
-            IAsyncCollector<object> tasks, ILogger log)
+                ConnectionStringSetting = "CosmosDBConnection",
+                CreateIfNotExists = true)]
+                IAsyncCollector<object> tasks,
+            ILogger log)
         {
             log.LogInformation("Creating a new task list item.");
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -34,10 +36,10 @@ namespace Tasks.FunctionApp.Functions.Task
             await tasks.AddAsync(new
             {
                 id = task.Id,
-                task.CreatedTime,
-                task.Category,
-                task.TaskDescription,
-                task.IsCompleted
+                created_time = task.CreatedTime,
+                category = task.Category,
+                task_description = task.TaskDescription,
+                is_completed = task.IsCompleted
             });
 
             log.LogInformation($"New Task created successfully with ID {task.Id}.");
