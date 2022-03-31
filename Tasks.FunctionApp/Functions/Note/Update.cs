@@ -40,8 +40,6 @@ public class Update : Base
 
             document.SetPropertyValue("Tasks", updated.Tasks);
 
-            //if (!string.IsNullOrEmpty(updated.Tasks)) document.SetPropertyValue("Tasks", updated.Tasks);
-
             await client.ReplaceDocumentAsync(document);
             NoteModel note = (dynamic)document;
             log.LogInformation($"New note updated successfully with ID {note.Id}.");
