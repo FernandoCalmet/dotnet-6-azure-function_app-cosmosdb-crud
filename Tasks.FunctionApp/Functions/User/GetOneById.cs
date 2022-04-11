@@ -9,6 +9,7 @@ using System;
 using Microsoft.Azure.Documents.Client;
 using System.Linq;
 using Tasks.FunctionApp.Exceptions;
+using System.Collections.Generic;
 
 namespace Tasks.FunctionApp.Functions.User;
 
@@ -21,27 +22,29 @@ public class GetOneById : Base
             DatabaseName,
             CollectionName,
             ConnectionStringSetting = "CosmosDBConnection",
-            Id = "{id}")]
-                DocumentClient client,
+            SqlQuery = "select * from Users u where u.id = {id}")]
+            IAsyncCollector<object> users,
+            //Id = "{id}")]
+            //    DocumentClient client,
             ILogger log, string id)
     {
         log.LogInformation("Getting user item by id.");
 
         try
         {
-            Uri collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName);
-            var document = client.CreateDocumentQuery(collectionUri).Where(t => t.Id == id)
-                            .AsEnumerable().FirstOrDefault();
-            if (document == null)
-            {
-                log.LogInformation($"Item {id} not found");
-                return new NotFoundResult();
-            }
+            //Uri collectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName);
+            //var document = client.CreateDocumentQuery(collectionUri).Where(t => t.Id == id)
+            //                .AsEnumerable().FirstOrDefault();
+            //if (document == null)
+            //{
+            //    log.LogInformation($"Item {id} not found");
+            //    return new NotFoundResult();
+            //}
 
-            await client.ReplaceDocumentAsync(document);
-            UserModel user = (dynamic)document;
+            //await client.ReplaceDocumentAsync(document);
+            //UserModel user = (dynamic)document;
 
-            return new OkObjectResult(user);
+            return new OkObjectResult(users);
         }
         catch (UserException exception)
         {

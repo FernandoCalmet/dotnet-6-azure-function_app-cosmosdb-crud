@@ -40,6 +40,7 @@ namespace Tasks.FunctionApp.Functions.User
                 await tasks.AddAsync(new
                 {
                     id = user.Id,
+                    role = user.Role,
                     first_name = user.FirstName,
                     last_name = user.LastName
                 });

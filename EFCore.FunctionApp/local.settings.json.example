@@ -1,0 +1,12 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "CosmosDbConnectionString": "",
+    "DatabaseName": "Identity",
+    "OidcApiAuthSettings:Audience": "",
+    "OidcApiAuthSettings:MetadataAddress": "",
+    "OidcApiAuthSettings:IssuerUrl": ""
+  }
+}

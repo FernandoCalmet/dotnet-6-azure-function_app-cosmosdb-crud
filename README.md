@@ -17,6 +17,8 @@ Este proyecto es una muestra de una solución CRUD base de una Azure Function Ap
 
 ## ✔️ CARACTERÍSTICAS
 
+### Proyecto Tasks.FunctionApp
+
 - [x] Create User
 - [x] Get All Users
 - [x] Get User by Id
@@ -32,6 +34,17 @@ Este proyecto es una muestra de una solución CRUD base de una Azure Function Ap
 - [x] Get Note by Id
 - [x] Update Note
 - [x] Delete Note
+
+### Proyecto EFCore.FunuctionApp
+
+- [x] AD B2C Authentication
+- [x] EntityFrameCore with CosmosDB Context
+- [x] Estructure: Services, Repositories, Commands, ValueObjects
+- [x] Create User
+- [x] Get All Users
+- [ ] Get User by Id
+- [ ] Update User
+- [ ] Delete User
 
 ## ⚙️ INSTALACIÓN
 

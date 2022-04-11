@@ -40,6 +40,7 @@ namespace Tasks.FunctionApp.Functions.Note
                 await notes.AddAsync(new
                 {
                     id = note.Id,
+                    user_id = note.User.Id,
                     created_time = note.CreatedTime,
                     tasks = note.Tasks,
                     user = note.User
