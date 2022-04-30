@@ -51,7 +51,7 @@ Este proyecto es una muestra de una solución CRUD base de una Azure Function Ap
 Clonar el repositorio.
 
 ```bash
-gh repo clone FernandoCalmet/DOTNET-6-Azure-FunctionApp-CosmosDB-CRUD
+gh repo clone FernandoCalmet/dotnet-6-azure-function_app-cosmosdb-crud
 ```
 
 ## 📄 LICENCIA
